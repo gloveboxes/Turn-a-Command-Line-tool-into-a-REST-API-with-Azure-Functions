@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Azure IoT Central Connection String Generator</title>
+
+    <script <script type="text/javascript">
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function loadCookies() {
+            document.getElementById("scope").value = getCookie("scope");
+            document.getElementById("deviceId").value = getCookie("deviceId");
+            document.getElementById("deviceKey").value = getCookie("deviceKey");
+        }
+
+        function getConnectionString() {
+            var scope = document.getElementById("scope").value;
+            var deviceId = document.getElementById("deviceId").value;
+            var deviceKey = encodeURIComponent(document.getElementById("deviceKey").value);
+
+            setCookie('scope', scope, 10);
+            setCookie('deviceId', deviceId, 10);
+            setCookie('deviceKey', document.getElementById("deviceKey").value, 10);
+
+            var host = "https://dps-gen.azurewebsites.net/api/ConnectionString";
+            var url = host + "?scope=" + scope;
+            url = url + "&deviceid=" + deviceId;
+            url = url + "&key=" + deviceKey;
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var res = this.responseText;
+                    var n = res.indexOf("HostName");
+                    var res1 = res.substring(n);
+                    document.getElementById("content").innerHTML = res1;
+                }
+            };
+            xmlhttp.open("GET", url, true);
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            xmlhttp.send();
+            document.getElementById("content").innerHTML = "Working...";
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadCookies();
+        }, false);
+
+    </script>
+</head>
+
+
+<body>
+    <h2>Azure IoT Central Connection String Generator</h2>
+
+    <table style="width:100%">
+        <tr>
+            <th></th>
+            <th></th>
+
+        </tr>
+        <tr>
+            <td>Scope</td>
+            <td><input type="text" name="scope" id="scope" size="60"></td>
+        </tr>
+        <tr>
+            <td>Device Id</td>
+            <td><input type="text" id="deviceId" size="60"></td>
+        </tr>
+        <tr>
+            <td>Device Key</td>
+            <td><input type="text" id="deviceKey" size="60"></td>
+        </tr>
+    </table>
+
+
+    <br>
+    <br>
+    <button onclick="getConnectionString();">Get Connection String</button>
+    <br>
+    <br>
+
+    <div id="content"></div>
+
+    <br>
+    <br>
+
+
+    <a href="https://github.com/gloveboxes/Azure-IoT-Central-Connection-String-Generator">GitHub Source Code for Azure IoT Central Connection String Solution</a>
+
+</body>
+
+</html>
