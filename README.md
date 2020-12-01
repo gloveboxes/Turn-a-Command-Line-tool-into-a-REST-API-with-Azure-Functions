@@ -1,12 +1,12 @@
-﻿# Turn a Command Line tool into a REST API with Azure Functions
+# Turn a Command Line tool into a REST API with Azure Functions
 
 ![command line tool](https://raw.githubusercontent.com/gloveboxes/Turn-a-Command-Line-tool-into-a-REST-API-with-Azure-Functions/master/docs/banner.jpg)
 
-|Author|[Dave Glover](https://developer.microsoft.com/en-us/advocates/dave-glover), Microsoft Cloud Developer Advocate |
+|Author|[Dave Glover](https://developer.microsoft.com/advocates/dave-glover?WT.mc_id=iot-0000-dglover), Microsoft Cloud Developer Advocate |
 |----|---|
 |Documentation|[README](https://gloveboxes.github.io/Turn-a-Command-Line-tool-into-a-REST-API-with-Azure-Functions/) |
-|Platform| [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/?WT.mc_id=github-blog-dglover)|
-|Documentation | [Create Azure HTTP triggered Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function/?WT.mc_id=github-blog-dglover), [Azure IoT Central](https://docs.microsoft.com/en-us/azure/iot-central/?WT.mc_id=medium-article-dglover), [Azure Device Provisioning Service](https://docs.microsoft.com/azure/iot-dps/about-iot-dps/?WT.mc_id=github-blog-dglover), [Connection String Generator (dps_str)](https://github.com/Azure/dps-keygen) |
+|Platform| [Azure Functions](https://docs.microsoft.com/azure/azure-functions/?WT.mc_id=iot-0000-dglover)|
+|Documentation | [Create Azure HTTP triggered Functions](https://docs.microsoft.com/azure/azure-functions/functions-create-first-azure-function/?WT.mc_id=iot-0000-dglover), [Azure IoT Central](https://docs.microsoft.com/azure/iot-central/?WT.mc_id=iot-0000-dglover), [Azure Device Provisioning Service](https://docs.microsoft.com/azure/iot-dps/about-iot-dps/?WT.mc_id=iot-0000-dglover), [Connection String Generator (dps_str)](https://github.com/Azure/dps-keygen) |
 |Date|As at April 2019|
 
 ## Introduction
@@ -15,11 +15,11 @@ Thought I'd share a neat trick to convert a command line tool into a REST API us
 
 At a high level, you create an Azure HTTP Function, upload the command line tool, add code to pass in command line arguments, redirect standard output, start the command process, and return the standard output from the command line in the HTTP response.
 
-I'm running an [Azure IoT Central](https://azure.microsoft.com/en-au/services/iot-central/) workshop and to minimize setup I wanted the workshop to be completely browser-based. Azure IoT Central uses the [Azure Device Provisioning Service](https://docs.microsoft.com/azure/iot-dps/about-iot-dps/?WT.mc_id=github-blog-dglover) and you need to use the [Connection String Generator (dps_str)](https://github.com/Azure/dps-keygen) command line tool to create a real device connection string.
+I'm running an [Azure IoT Central](https://azure.microsoft.com/services/iot-central/?WT.mc_id=iot-0000-dglover) workshop and to minimize setup I wanted the workshop to be completely browser-based. Azure IoT Central uses the [Azure Device Provisioning Service](https://docs.microsoft.com/azure/iot-dps/about-iot-dps/?WT.mc_id=iot-0000-dglover) and you need to use the [Connection String Generator (dps_str)](https://github.com/Azure/dps-keygen) command line tool to create a real device connection string.
 
 ## How to run a command line tool to a REST API
 
-1. Create an [Azure HTTP triggered Function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function/?WT.mc_id=github-blog-dglover) from the Azure Portal
+1. Create an [Azure HTTP triggered Function](https://docs.microsoft.com/azure/azure-functions/functions-create-first-azure-function/?WT.mc_id=iot-0000-dglover) from the Azure Portal
 2. Upload the command and associated libraries.
    ![Upload command tool](https://raw.githubusercontent.com/gloveboxes/Turn-a-Command-Line-tool-into-a-REST-API-with-Azure-Functions/master/docs/upload-file.PNG)
 3. This is the code I used to pass in command line arguments, redirect standard output, and start the command. You'll obviously need to tweak for the command you want to run.
@@ -85,7 +85,7 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
 
 ## Browser UI for the REST API
 
-I wanted a web browser UI for the REST API so I wrote a simple HTML/JavaScript [App](dps-cstr.html) and I call the REST API from JavaScript. Given no server-side processing is required the HTML page is hosted using [Static website hosting in Azure Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website/?WT.mc_id=github-blog-dglover).
+I wanted a web browser UI for the REST API so I wrote a simple HTML/JavaScript [App](dps-cstr.html) and I call the REST API from JavaScript. Given no server-side processing is required the HTML page is hosted using [Static website hosting in Azure Storage](https://docs.microsoft.com/azure/storage/blobs/storage-blob-static-website/?WT.mc_id=iot-0000-dglover).
 
 ### CORS Rules
 
@@ -100,5 +100,5 @@ From the Azure Function you created
 
 ## Acknowledgements
 
-1. How to [Run Console Apps on Azure Functions](https://azure.microsoft.com/en-au/resources/samples/functions-dotnet-migrating-console-apps/)
+1. How to [Run Console Apps on Azure Functions](https://azure.microsoft.com/resources/samples/functions-dotnet-migrating-console-apps/?WT.mc_id=iot-0000-dglover)
 2. How to [Run .exe executable file in Azure Function](https://stackoverflow.com/questions/45348498/run-exe-executable-file-in-azure-function)
